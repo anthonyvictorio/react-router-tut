@@ -4,7 +4,7 @@ export default function Contact() {
   const contact = {
     first: "Your",
     last: "Name",
-    avatar: "https://placekitten.com/g/200/200",
+    avatar: "https://www.freevector.com/uploads/vector/preview/13478/FreeVector-FC-Barcelona-2002.jpg",
     twitter: "your_handle",
     notes: "Some notes",
     favorite: true,
