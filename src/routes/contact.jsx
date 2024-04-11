@@ -22,13 +22,14 @@ export async function action({ request, params }) {
 
 export default function Contact() {
   const { contact } = useLoaderData();
+  const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png"
   
   return (
     <div id="contact">
       <div>
         <img
           key={contact.avatar}
-          src={contact.avatar || null}
+          src={contact.avatar || defaultImage}
         />
       </div>
 
