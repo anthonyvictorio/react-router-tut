@@ -1,23 +1,22 @@
 import { Form, useLoaderData } from "react-router-dom";
-import { getContact } from "../contacts";
+import { getContact, updateContact } from "../contacts";
+import { useFetcher } from "react-router-dom";
 
 export async function loader({ params }) {
   const contact = await getContact(params.contactId);
   return { contact };
 }
 
+export async function action({ request, params }) {
+  let formData = await request.formData();
+  return updateContact(params.contactId, {
+    favorite: formData.get("favorite") === "true",
+  });
+}
+
 export default function Contact() {
   const { contact } = useLoaderData();
-  /*
-  const contact = {
-    first: "Your",
-    last: "Name",
-    avatar: "https://www.freevector.com/uploads/vector/preview/13478/FreeVector-FC-Barcelona-2002.jpg",
-    twitter: "your_handle",
-    notes: "Some notes",
-    favorite: true,
-  };
-*/
+  
   return (
     <div id="contact">
       <div>
@@ -80,8 +79,10 @@ export default function Contact() {
 function Favorite({ contact }) {
   // yes, this is a `let` for later
   let favorite = contact.favorite;
+  const fetcher = useFetcher();
+
   return (
-    <Form method="post">
+    <fetcher.Form method="post">
       <button
         name="favorite"
         value={favorite ? "false" : "true"}
@@ -93,6 +94,6 @@ function Favorite({ contact }) {
       >
         {favorite ? "★" : "☆"}
       </button>
-    </Form>
+    </fetcher.Form>
   );
 }
